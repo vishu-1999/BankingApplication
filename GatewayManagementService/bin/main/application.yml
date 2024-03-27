@@ -1,0 +1,25 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: GATEWAY-MANAGEMENT-SERVICE
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: CUSTOMER-SERVICE
+          uri: http://localhost:8082/customer
+          predicates:
+            - Path=/customer/**
+
+        - id: ACCOUNT-SERVICE
+          uri: http://localhost:8083/account
+          predicates:
+            - Path=/account/**
+  config:
+    import: optional:configserver:http://localhost:8888        
+  
+
